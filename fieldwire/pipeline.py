@@ -1,5 +1,5 @@
 from typing import Any, Callable, Dict, List, Optional
-from fieldwire.schema import Schema, validate, field_names
+from fieldwire.schema import Schema, validate
 
 
 class PipelineError(Exception):
@@ -7,32 +7,46 @@ class PipelineError(Exception):
 
 
 class Step:
+    """A single processing step in a pipeline."""
+
     def __init__(
         self,
-        fn: Callable[[Dict[str, Any]], Dict[str, Any]],
+        fn: Callable[[List[Dict[str, Any]]], List[Dict[str, Any]]],
         input_schema: Optional[Schema] = None,
         output_schema: Optional[Schema] = None,
         name: Optional[str] = None,
     ):
+        if not callable(fn):
+            raise PipelineError("fn must be callable")
         self.fn = fn
         self.input_schema = input_schema
         self.output_schema = output_schema
         self.name = name or fn.__name__
 
-    def run(self, record: Dict[str, Any]) -> Dict[str, Any]:
-        if self.input_schema:
-            errors = validate(record, self.input_schema)
-            if errors:
-                raise PipelineError(
-                    f"Step '{self.name}' input validation failed: {errors}"
-                )
-        result = self.fn(record)
-        if self.output_schema:
-            errors = validate(result, self.output_schema)
-            if errors:
-                raise PipelineError(
-                    f"Step '{self.name}' output validation failed: {errors}"
-                )
+    def run(self, rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        if self.input_schema is not None:
+            for i, row in enumerate(rows):
+                errors = validate(self.input_schema, row)
+                if errors:
+                    raise PipelineError(
+                        f"Step '{self.name}' input row {i} invalid: {'; '.join(errors)}"
+                    )
+        try:
+            result = self.fn(rows)
+        except PipelineError:
+            raise
+        except Exception as exc:
+            raise PipelineError(
+                f"Step '{self.name}' raised an exception: {exc}"
+            ) from exc
+
+        if self.output_schema is not None:
+            for i, row in enumerate(result):
+                errors = validate(self.output_schema, row)
+                if errors:
+                    raise PipelineError(
+                        f"Step '{self.name}' output row {i} invalid: {'; '.join(errors)}"
+                    )
         return result
 
     def __repr__(self) -> str:
@@ -40,47 +54,26 @@ class Step:
 
 
 class Pipeline:
-    def __init__(self, steps: Optional[List[Step]] = None):
+    """Chains multiple Steps together, passing output of one to the next."""
+
+    def __init__(self, steps: Optional[List[Step]] = None, name: Optional[str] = None):
         self.steps: List[Step] = steps or []
+        self.name = name or "pipeline"
 
     def add_step(self, step: Step) -> "Pipeline":
+        if not isinstance(step, Step):
+            raise PipelineError(f"Expected a Step instance, got {type(step).__name__}")
         self.steps.append(step)
         return self
 
-    def run(self, records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        results = []
-        for record in records:
-            current = record
-            for step in self.steps:
-                try:
-                    current = step.run(current)
-                except PipelineError:
-                    raise
-                except Exception as exc:
-                    raise PipelineError(
-                        f"Step '{step.name}' raised an unexpected error: {exc}"
-                    ) from exc
-            results.append(current)
-        return results
-
-    def run_batch(
-        self,
-        records: List[Dict[str, Any]],
-        on_error: str = "raise",
-    ) -> List[Dict[str, Any]]:
-        if on_error not in ("raise", "skip"):
-            raise PipelineError(
-                f"Invalid on_error value '{on_error}'. Choose 'raise' or 'skip'."
-            )
-        results = []
-        for record in records:
-            try:
-                results.append(self.run([record])[0])
-            except PipelineError:
-                if on_error == "raise":
-                    raise
-        return results
+    def run(self, rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        if not isinstance(rows, list):
+            raise PipelineError(f"Expected a list of rows, got {type(rows).__name__}")
+        current = rows
+        for step in self.steps:
+            current = step.run(current)
+        return current
 
     def __repr__(self) -> str:
-        step_names = [s.name for s in self.steps]
-        return f"Pipeline(steps={step_names})"
+        steps_repr = ", ".join(repr(s) for s in self.steps)
+        return f"Pipeline(name={self.name!r}, steps=[{steps_repr}])"
