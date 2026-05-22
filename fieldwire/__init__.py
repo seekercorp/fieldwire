@@ -19,6 +19,8 @@ from fieldwire.window import WindowError, Window
 from fieldwire.roller import RollerError, Roller
 from fieldwire.splitter import SplitError, Splitter
 from fieldwire.merger import MergeError, Merger
+from fieldwire.filler import FillError, Filler
+from fieldwire.normalizer import NormalizeError, Normalizer
 
 __all__ = [
     "Schema",
@@ -66,4 +68,8 @@ __all__ = [
     "Splitter",
     "MergeError",
     "Merger",
+    "FillError",
+    "Filler",
+    "NormalizeError",
+    "Normalizer",
 ]
