@@ -1,4 +1,4 @@
-"""Fieldwire: typed data pipelines with automatic schema inference and validation."""
+"""fieldwire — typed data pipelines with automatic schema inference and validation."""
 
 from fieldwire.schema import FieldSchema, Schema, validate, field_names, get_field
 from fieldwire.inference import infer_field_schema, infer_schema
@@ -15,54 +15,62 @@ from fieldwire.deduplicator import DeduplicateError, Deduplicator
 from fieldwire.sampler import SampleError, Sampler
 from fieldwire.caster import CastError, Caster
 from fieldwire.flattener import FlattenError, Flattener
+from fieldwire.pivotter import PivotError, Pivotter
+from fieldwire.unpivotter import UnpivotError, Unpivotter
 
 __all__ = [
-    # Schema
+    # schema
     "FieldSchema",
     "Schema",
     "validate",
     "field_names",
     "get_field",
-    # Inference
+    # inference
     "infer_field_schema",
     "infer_schema",
-    # Pipeline
+    # pipeline
     "PipelineError",
     "Step",
-    # Transform
+    # transform
     "TransformError",
     "FieldTransform",
-    # Aggregator
+    # aggregator
     "AggregationError",
     "Aggregator",
-    # GroupBy
+    # groupby
     "GroupByError",
     "GroupBy",
-    # Joiner
+    # joiner
     "JoinError",
     "Joiner",
-    # Sorter
+    # sorter
     "SortError",
     "Sorter",
-    # Filter
+    # filter
     "FilterError",
     "Filter",
-    # Limiter
+    # limiter
     "LimitError",
     "Limiter",
-    # Renamer
+    # renamer
     "RenameError",
     "Renamer",
-    # Deduplicator
+    # deduplicator
     "DeduplicateError",
     "Deduplicator",
-    # Sampler
+    # sampler
     "SampleError",
     "Sampler",
-    # Caster
+    # caster
     "CastError",
     "Caster",
-    # Flattener
+    # flattener
     "FlattenError",
     "Flattener",
+    # pivotter
+    "PivotError",
+    "Pivotter",
+    # unpivotter
+    "UnpivotError",
+    "Unpivotter",
 ]
