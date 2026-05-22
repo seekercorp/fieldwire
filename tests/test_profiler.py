@@ -90,6 +90,21 @@ def test_profile_empty_raises():
         p.profile([])
 
 
+def test_profile_all_nulls_numeric():
+    """min, max, and mean should be None when all values for a numeric field are null."""
+    p = Profiler()
+    records = [
+        {"id": 1, "score": None, "label": "a"},
+        {"id": 2, "score": None, "label": "b"},
+    ]
+    result = p.profile(records)
+    assert result["score"].min is None
+    assert result["score"].max is None
+    assert result["score"].mean is None
+    assert result["score"].null_count == 2
+    assert result["score"].null_rate == pytest.approx(1.0)
+
+
 def test_profiler_repr():
     p = Profiler()
     assert "Profiler" in repr(p)
