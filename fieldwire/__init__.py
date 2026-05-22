@@ -1,5 +1,3 @@
-"""fieldwire — typed data pipelines with automatic schema inference and validation."""
-
 from fieldwire.schema import FieldSchema, Schema, validate, field_names, get_field
 from fieldwire.pipeline import PipelineError, Step
 from fieldwire.inference import infer_field_schema, infer_schema
@@ -35,6 +33,7 @@ from fieldwire.scorer import ScoreError, Scorer
 from fieldwire.differ import DiffError, DiffResult, Differ
 from fieldwire.changelog import ChangelogError, ChangelogEntry, Changelog
 from fieldwire.forecaster import ForecastError, Forecaster
+from fieldwire.annotator import AnnotateError, Annotator
 
 __all__ = [
     "FieldSchema", "Schema", "validate", "field_names", "get_field",
@@ -72,4 +71,5 @@ __all__ = [
     "DiffError", "DiffResult", "Differ",
     "ChangelogError", "ChangelogEntry", "Changelog",
     "ForecastError", "Forecaster",
+    "AnnotateError", "Annotator",
 ]
