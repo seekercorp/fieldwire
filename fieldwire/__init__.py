@@ -1,4 +1,4 @@
-from fieldwire.schema import FieldSchema, Schema, validate, field_names, get_field
+from fieldwire.schema import Schema, FieldSchema, validate, field_names, get_field
 from fieldwire.pipeline import PipelineError, Step
 from fieldwire.inference import infer_field_schema, infer_schema
 from fieldwire.transform import TransformError, FieldTransform
@@ -17,10 +17,12 @@ from fieldwire.pivotter import PivotError, Pivotter
 from fieldwire.unpivotter import UnpivotError, Unpivotter
 from fieldwire.window import WindowError, Window
 from fieldwire.roller import RollerError, Roller
+from fieldwire.splitter import SplitError, Splitter
+from fieldwire.merger import MergeError, Merger
 
 __all__ = [
-    "FieldSchema",
     "Schema",
+    "FieldSchema",
     "validate",
     "field_names",
     "get_field",
@@ -60,4 +62,8 @@ __all__ = [
     "Window",
     "RollerError",
     "Roller",
+    "SplitError",
+    "Splitter",
+    "MergeError",
+    "Merger",
 ]
