@@ -1,6 +1,8 @@
+"""fieldwire — typed data pipelines with automatic schema inference."""
+
 from fieldwire.schema import FieldSchema, Schema, validate, field_names, get_field
-from fieldwire.pipeline import PipelineError, Step
 from fieldwire.inference import infer_field_schema, infer_schema
+from fieldwire.pipeline import PipelineError, Step
 from fieldwire.transform import TransformError, FieldTransform
 from fieldwire.aggregator import AggregationError, Aggregator
 from fieldwire.groupby import GroupByError, GroupBy
@@ -34,42 +36,80 @@ from fieldwire.differ import DiffError, DiffResult, Differ
 from fieldwire.changelog import ChangelogError, ChangelogEntry, Changelog
 from fieldwire.forecaster import ForecastError, Forecaster
 from fieldwire.annotator import AnnotateError, Annotator
+from fieldwire.clipper import ClipError, Clipper
 
 __all__ = [
+    # schema
     "FieldSchema", "Schema", "validate", "field_names", "get_field",
-    "PipelineError", "Step",
+    # inference
     "infer_field_schema", "infer_schema",
+    # pipeline
+    "PipelineError", "Step",
+    # transform
     "TransformError", "FieldTransform",
+    # aggregator
     "AggregationError", "Aggregator",
+    # groupby
     "GroupByError", "GroupBy",
+    # joiner
     "JoinError", "Joiner",
+    # sorter
     "SortError", "Sorter",
+    # filter
     "FilterError", "Filter",
+    # limiter
     "LimitError", "Limiter",
+    # renamer
     "RenameError", "Renamer",
+    # deduplicator
     "DeduplicateError", "Deduplicator",
+    # sampler
     "SampleError", "Sampler",
+    # caster
     "CastError", "Caster",
+    # flattener
     "FlattenError", "Flattener",
+    # pivotter
     "PivotError", "Pivotter",
+    # unpivotter
     "UnpivotError", "Unpivotter",
+    # window
     "WindowError", "Window",
+    # roller
     "RollerError", "Roller",
+    # splitter
     "SplitError", "Splitter",
+    # merger
     "MergeError", "Merger",
+    # filler
     "FillError", "Filler",
+    # normalizer
     "NormalizeError", "Normalizer",
+    # encoder / decoder
     "EncodeError", "Encoder",
     "DecodeError", "Decoder",
+    # io
     "RecordIO",
+    # profiler
     "ProfileError", "FieldProfile", "Profiler",
+    # validator
     "ValidateError", "Validator",
+    # hasher
     "HashError", "Hasher",
+    # binner
     "BinError", "Binner",
+    # zipper
     "ZipError", "Zipper",
+    # scorer
     "ScoreError", "Scorer",
+    # differ
     "DiffError", "DiffResult", "Differ",
+    # changelog
     "ChangelogError", "ChangelogEntry", "Changelog",
+    # forecaster
     "ForecastError", "Forecaster",
+    # annotator
     "AnnotateError", "Annotator",
+    # clipper
+    "ClipError", "Clipper",
 ]
