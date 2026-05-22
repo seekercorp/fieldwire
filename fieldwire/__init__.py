@@ -1,47 +1,68 @@
-"""fieldwire — typed data pipelines with automatic schema inference and validation."""
+"""Fieldwire: typed data pipelines with automatic schema inference and validation."""
 
 from fieldwire.schema import FieldSchema, Schema, validate, field_names, get_field
 from fieldwire.inference import infer_field_schema, infer_schema
-from fieldwire.pipeline import Step, PipelineError
-from fieldwire.transform import FieldTransform, TransformError
-from fieldwire.aggregator import Aggregator, AggregationError
-from fieldwire.groupby import GroupBy, GroupByError
-from fieldwire.joiner import Joiner, JoinError
-from fieldwire.sorter import Sorter, SortError
-from fieldwire.filter import Filter, FilterError
-from fieldwire.limiter import Limiter, LimitError
-from fieldwire.renamer import Renamer, RenameError
-from fieldwire.deduplicator import Deduplicator, DeduplicateError
-from fieldwire.sampler import Sampler, SampleError
+from fieldwire.pipeline import PipelineError, Step
+from fieldwire.transform import TransformError, FieldTransform
+from fieldwire.aggregator import AggregationError, Aggregator
+from fieldwire.groupby import GroupByError, GroupBy
+from fieldwire.joiner import JoinError, Joiner
+from fieldwire.sorter import SortError, Sorter
+from fieldwire.filter import FilterError, Filter
+from fieldwire.limiter import LimitError, Limiter
+from fieldwire.renamer import RenameError, Renamer
+from fieldwire.deduplicator import DeduplicateError, Deduplicator
+from fieldwire.sampler import SampleError, Sampler
+from fieldwire.caster import CastError, Caster
+from fieldwire.flattener import FlattenError, Flattener
 
 __all__ = [
+    # Schema
     "FieldSchema",
     "Schema",
     "validate",
     "field_names",
     "get_field",
+    # Inference
     "infer_field_schema",
     "infer_schema",
-    "Step",
+    # Pipeline
     "PipelineError",
-    "FieldTransform",
+    "Step",
+    # Transform
     "TransformError",
-    "Aggregator",
+    "FieldTransform",
+    # Aggregator
     "AggregationError",
-    "GroupBy",
+    "Aggregator",
+    # GroupBy
     "GroupByError",
-    "Joiner",
+    "GroupBy",
+    # Joiner
     "JoinError",
-    "Sorter",
+    "Joiner",
+    # Sorter
     "SortError",
-    "Filter",
+    "Sorter",
+    # Filter
     "FilterError",
-    "Limiter",
+    "Filter",
+    # Limiter
     "LimitError",
-    "Renamer",
+    "Limiter",
+    # Renamer
     "RenameError",
-    "Deduplicator",
+    "Renamer",
+    # Deduplicator
     "DeduplicateError",
-    "Sampler",
+    "Deduplicator",
+    # Sampler
     "SampleError",
+    "Sampler",
+    # Caster
+    "CastError",
+    "Caster",
+    # Flattener
+    "FlattenError",
+    "Flattener",
 ]
