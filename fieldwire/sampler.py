@@ -10,7 +10,14 @@ class SampleError(Exception):
 
 @dataclass
 class Sampler:
-    """Randomly samples rows from a dataset."""
+    """Randomly samples rows from a dataset.
+
+    Attributes:
+        n: The exact number of records to sample. Mutually exclusive with `fraction`.
+        fraction: The proportion of records to sample, between 0.0 and 1.0.
+            Mutually exclusive with `n`.
+        seed: Optional random seed for reproducible sampling.
+    """
 
     n: Optional[int] = None
     fraction: Optional[float] = None
@@ -27,6 +34,15 @@ class Sampler:
             raise SampleError("'fraction' must be between 0.0 and 1.0.")
 
     def apply(self, records: List[dict], schema: Optional[Schema] = None) -> List[dict]:
+        """Sample records from the provided list.
+
+        Args:
+            records: The list of record dicts to sample from.
+            schema: Unused; accepted for pipeline compatibility.
+
+        Returns:
+            A randomly sampled subset of the input records.
+        """
         rng = random.Random(self.seed)
         if self.n is not None:
             k = min(self.n, len(records))
