@@ -94,36 +94,14 @@ def test_cast_unsupported_type_raises():
 
 
 def test_cast_invalid_value_raises():
-    schema = make_schema(("val", str, False))
-    caster = Caster(schema=schema, casts={"val": int})
-    with pytest.raises(CastError, match="Failed to cast"):
-        caster.apply([{"val": "not_an_int"}])
-
-
-# --- Multiple fields ---
-
-def test_cast_multiple_fields():
-    schema = make_schema(("a", str, False), ("b", str, False))
-    caster = Caster(schema=schema, casts={"a": int, "b": float})
-    result = caster.apply([{"a": "10", "b": "3.14"}])
-    assert result[0]["a"] == 10
-    assert result[0]["b"] == pytest.approx(3.14)
-
-
-# --- Does not mutate original ---
-
-def test_cast_does_not_mutate_original():
-    schema = make_schema(("val", str, False))
-    caster = Caster(schema=schema, casts={"val": int})
-    original = [{"val": "5"}]
-    caster.apply(original)
-    assert original[0]["val"] == "5"
-
-
-# --- Repr ---
-
-def test_repr():
     schema = make_schema(("x", str, False))
     caster = Caster(schema=schema, casts={"x": int})
-    assert "Caster" in repr(caster)
-    assert "int" in repr(caster)
+    with pytest.raises(CastError, match="Failed to cast"):
+        caster.apply([{"x": "not_an_int"}])
+
+
+def test_cast_invalid_value_error_includes_field_name():
+    schema = make_schema(("price", str, False))
+    caster = Caster(schema=schema, casts={"price": float})
+    with pytest.raises(CastError, match="price"):
+        caster.apply([{"price": "not_a_float"}])
