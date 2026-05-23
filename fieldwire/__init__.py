@@ -37,6 +37,7 @@ from fieldwire.changelog import ChangelogError, ChangelogEntry, Changelog
 from fieldwire.forecaster import ForecastError, Forecaster
 from fieldwire.annotator import AnnotateError, Annotator
 from fieldwire.clipper import ClipError, Clipper
+from fieldwire.reshaper import ReshapeError, Reshaper
 
 __all__ = [
     # schema
@@ -112,4 +113,6 @@ __all__ = [
     "AnnotateError", "Annotator",
     # clipper
     "ClipError", "Clipper",
+    # reshaper
+    "ReshapeError", "Reshaper",
 ]
