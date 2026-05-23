@@ -1,3 +1,5 @@
+"""fieldwire — typed data pipelines with automatic schema inference and validation."""
+
 from fieldwire.schema import FieldSchema, Schema, validate, field_names, get_field
 from fieldwire.pipeline import PipelineError, Step
 from fieldwire.inference import infer_field_schema, infer_schema
@@ -38,15 +40,21 @@ from fieldwire.clipper import ClipError, Clipper
 from fieldwire.reshaper import ReshapeError, Reshaper
 from fieldwire.imputer import ImputeError, Imputer
 from fieldwire.outlier import OutlierError, Outlier
-from fieldwire.detector import DetectError, AnomalyReport, Detector
+from fieldwire.detector import DetectError, AnomalyReport
 from fieldwire.partitioner import PartitionError, Partitioner
 from fieldwire.router import RouterError, Router
 from fieldwire.truncator import TruncateError, Truncator
+from fieldwire.tokenizer import TokenizeError, Tokenizer
+from fieldwire.embedder import EmbedError, Embedder
 
 __all__ = [
+    # schema
     "FieldSchema", "Schema", "validate", "field_names", "get_field",
+    # pipeline
     "PipelineError", "Step",
+    # inference
     "infer_field_schema", "infer_schema",
+    # transforms
     "TransformError", "FieldTransform",
     "AggregationError", "Aggregator",
     "GroupByError", "GroupBy",
@@ -84,8 +92,10 @@ __all__ = [
     "ReshapeError", "Reshaper",
     "ImputeError", "Imputer",
     "OutlierError", "Outlier",
-    "DetectError", "AnomalyReport", "Detector",
+    "DetectError", "AnomalyReport",
     "PartitionError", "Partitioner",
     "RouterError", "Router",
     "TruncateError", "Truncator",
+    "TokenizeError", "Tokenizer",
+    "EmbedError", "Embedder",
 ]
