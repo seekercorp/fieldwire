@@ -1,4 +1,4 @@
-"""fieldwire — typed data pipelines with automatic schema inference."""
+"""fieldwire — typed data pipelines with automatic schema inference and validation."""
 
 from fieldwire.schema import FieldSchema, Schema, validate, field_names, get_field
 from fieldwire.inference import infer_field_schema, infer_schema
@@ -38,6 +38,9 @@ from fieldwire.forecaster import ForecastError, Forecaster
 from fieldwire.annotator import AnnotateError, Annotator
 from fieldwire.clipper import ClipError, Clipper
 from fieldwire.reshaper import ReshapeError, Reshaper
+from fieldwire.imputer import ImputeError, Imputer
+from fieldwire.outlier import OutlierError, Outlier
+from fieldwire.detector import DetectError, AnomalyReport, Detector
 
 __all__ = [
     # schema
@@ -115,4 +118,10 @@ __all__ = [
     "ClipError", "Clipper",
     # reshaper
     "ReshapeError", "Reshaper",
+    # imputer
+    "ImputeError", "Imputer",
+    # outlier
+    "OutlierError", "Outlier",
+    # detector
+    "DetectError", "AnomalyReport", "Detector",
 ]
