@@ -1,5 +1,3 @@
-"""fieldwire — typed data pipeline library."""
-
 from fieldwire.schema import FieldSchema, Schema, validate, field_names, get_field
 from fieldwire.pipeline import PipelineError, Step
 from fieldwire.inference import infer_field_schema, infer_schema
@@ -43,91 +41,51 @@ from fieldwire.outlier import OutlierError, Outlier
 from fieldwire.detector import DetectError, AnomalyReport, Detector
 from fieldwire.partitioner import PartitionError, Partitioner
 from fieldwire.router import RouterError, Router
+from fieldwire.truncator import TruncateError, Truncator
 
 __all__ = [
-    # schema
     "FieldSchema", "Schema", "validate", "field_names", "get_field",
-    # pipeline
     "PipelineError", "Step",
-    # inference
     "infer_field_schema", "infer_schema",
-    # transform
     "TransformError", "FieldTransform",
-    # aggregator
     "AggregationError", "Aggregator",
-    # groupby
     "GroupByError", "GroupBy",
-    # joiner
     "JoinError", "Joiner",
-    # sorter
     "SortError", "Sorter",
-    # filter
     "FilterError", "Filter",
-    # limiter
     "LimitError", "Limiter",
-    # renamer
     "RenameError", "Renamer",
-    # deduplicator
     "DeduplicateError", "Deduplicator",
-    # sampler
     "SampleError", "Sampler",
-    # caster
     "CastError", "Caster",
-    # flattener
     "FlattenError", "Flattener",
-    # pivotter
     "PivotError", "Pivotter",
-    # unpivotter
     "UnpivotError", "Unpivotter",
-    # window
     "WindowError", "Window",
-    # roller
     "RollerError", "Roller",
-    # splitter
     "SplitError", "Splitter",
-    # merger
     "MergeError", "Merger",
-    # filler
     "FillError", "Filler",
-    # normalizer
     "NormalizeError", "Normalizer",
-    # encoder / decoder
     "EncodeError", "Encoder",
     "DecodeError", "Decoder",
-    # io
     "RecordIO",
-    # profiler
     "ProfileError", "FieldProfile", "Profiler",
-    # validator
     "ValidateError", "Validator",
-    # hasher
     "HashError", "Hasher",
-    # binner
     "BinError", "Binner",
-    # zipper
     "ZipError", "Zipper",
-    # scorer
     "ScoreError", "Scorer",
-    # differ
     "DiffError", "DiffResult", "Differ",
-    # changelog
     "ChangelogError", "ChangelogEntry", "Changelog",
-    # forecaster
     "ForecastError", "Forecaster",
-    # annotator
     "AnnotateError", "Annotator",
-    # clipper
     "ClipError", "Clipper",
-    # reshaper
     "ReshapeError", "Reshaper",
-    # imputer
     "ImputeError", "Imputer",
-    # outlier
     "OutlierError", "Outlier",
-    # detector
     "DetectError", "AnomalyReport", "Detector",
-    # partitioner
     "PartitionError", "Partitioner",
-    # router
     "RouterError", "Router",
+    "TruncateError", "Truncator",
 ]
