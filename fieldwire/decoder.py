@@ -47,6 +47,11 @@ class Decoder:
             raise DecodeError(f"Invalid JSON: {exc}") from exc
         if not isinstance(data, list):
             raise DecodeError("JSON root must be an array of objects.")
+        for i, item in enumerate(data):
+            if not isinstance(item, dict):
+                raise DecodeError(
+                    f"JSON array element at index {i} must be an object, got {type(item).__name__!r}."
+                )
         return data
 
     def _decode_csv(self, text: str) -> list[dict[str, Any]]:
