@@ -1,8 +1,8 @@
-"""fieldwire — typed data pipelines with automatic schema inference and validation."""
+"""fieldwire — typed data pipeline library."""
 
 from fieldwire.schema import FieldSchema, Schema, validate, field_names, get_field
-from fieldwire.inference import infer_field_schema, infer_schema
 from fieldwire.pipeline import PipelineError, Step
+from fieldwire.inference import infer_field_schema, infer_schema
 from fieldwire.transform import TransformError, FieldTransform
 from fieldwire.aggregator import AggregationError, Aggregator
 from fieldwire.groupby import GroupByError, GroupBy
@@ -41,14 +41,16 @@ from fieldwire.reshaper import ReshapeError, Reshaper
 from fieldwire.imputer import ImputeError, Imputer
 from fieldwire.outlier import OutlierError, Outlier
 from fieldwire.detector import DetectError, AnomalyReport, Detector
+from fieldwire.partitioner import PartitionError, Partitioner
+from fieldwire.router import RouterError, Router
 
 __all__ = [
     # schema
     "FieldSchema", "Schema", "validate", "field_names", "get_field",
-    # inference
-    "infer_field_schema", "infer_schema",
     # pipeline
     "PipelineError", "Step",
+    # inference
+    "infer_field_schema", "infer_schema",
     # transform
     "TransformError", "FieldTransform",
     # aggregator
@@ -124,4 +126,8 @@ __all__ = [
     "OutlierError", "Outlier",
     # detector
     "DetectError", "AnomalyReport", "Detector",
+    # partitioner
+    "PartitionError", "Partitioner",
+    # router
+    "RouterError", "Router",
 ]
