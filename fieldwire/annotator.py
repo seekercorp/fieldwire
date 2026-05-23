@@ -47,6 +47,23 @@ class Annotator:
             result.append(row)
         return result
 
+    def keys(self) -> List[str]:
+        """Return the list of annotation keys this annotator will add."""
+        return list(self.annotations.keys())
+
+    def add(self, key: str, fn: Callable[[Dict[str, Any]], Any]) -> None:
+        """Add a new annotation key and its corresponding function.
+
+        Raises AnnotateError if the key already exists in the annotations
+        mapping and overwrite is False.
+        """
+        if key in self.annotations and not self.overwrite:
+            raise AnnotateError(
+                f"annotation key '{key}' already exists; "
+                "set overwrite=True to allow"
+            )
+        self.annotations[key] = fn
+
     def __repr__(self) -> str:
         keys = list(self.annotations.keys())
         return f"Annotator(annotations={keys}, overwrite={self.overwrite})"
