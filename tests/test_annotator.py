@@ -87,3 +87,13 @@ def test_annotator_repr():
     ann = Annotator(annotations={"score": lambda r: 0}, overwrite=False)
     assert "Annotator" in repr(ann)
     assert "score" in repr(ann)
+
+
+def test_annotator_apply_empty_records_returns_empty():
+    """Applying annotations to an empty record list should return an empty list
+    without raising any errors, even when the annotation function would fail
+    on actual data.
+    """
+    ann = Annotator(annotations={"doubled": lambda r: r["value"] * 2})
+    result = ann.apply([])
+    assert result == []
